@@ -42,8 +42,7 @@ int main()
 	
 	while(1)
 	{
-//		AD0CR &= ~(0x7 << 24);  // **Clear start bits before initiating conversion**
-//    AD0CR |= (1 << 24);     // **Start ADC conversion**
+
 		
 		while (!(AD0STAT & (1 << 0))); // 1st bit of ADOSTAT holds the DONE status for AD0.0. Wait until ADC conversion on channel 1 completes
 			
@@ -52,19 +51,13 @@ int main()
 			voltage = ((adcdata/1024.0f)*3.3f);
 		
 				// Prepare string to display voltage and date (16/4)
-        // Format: "V=1.23V Date18/4"
-        sprintf((char *)buffer, "V=%.2fV Date18/4", voltage);
-
-        // Display on second row (line=1), column=0
-        set_cursor(0, 1);
-
-//        // Clear second line by printing spaces (optional)
-//        lcd_print((unsigned char *)"                ");
-
-//        // Set cursor again after clearing
-//        set_cursor(0, 1);
-
-        lcd_print(buffer);
+		        // Format: "V=1.23V Date18/4"
+		        sprintf((char *)buffer, "%.2fV 19/4", voltage);
+		
+		        // Display on second row (line=1), column=0
+		        set_cursor(0, 1);
+		
+		        lcd_print(buffer);
 		
 			delay();
 	}
